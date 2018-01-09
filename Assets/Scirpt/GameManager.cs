@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using PathologicalGames;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour {
     int vRates;
     [SerializeField]
     float interval = 1;
+   
+    SpawnPool poolManager;
     public static GameManager instance;
 
     Dictionary<PlaneType, string> mapPlanePrefabPath = new Dictionary<PlaneType, string>();
@@ -18,6 +21,8 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Awake () {
         instance = this;
+
+        poolManager = PoolManager.Pools["Pool"];
     }
 	void Start()
     {
@@ -72,8 +77,8 @@ public class GameManager : MonoBehaviour {
                 break;
             default:
                 string name = _type.ToString();
-                GameObject prefab = Resources.Load<GameObject>(GetBulletPrefabPath(_type));
-                bullet = GameObject.Instantiate(prefab);
+                //   GameObject prefab = Resources.Load<GameObject>(GetBulletPrefabPath(_type));
+                bullet = poolManager.Spawn(GetBulletPrefabPath(_type)).gameObject;// GameObject.Instantiate(prefab);
                 break;
         }
         if (bullet != null)
@@ -124,7 +129,7 @@ public class GameManager : MonoBehaviour {
     {
         if (mapBulletPrefabPath.ContainsKey(_type) == false)
         {
-            string name = "prefab/" + _type.ToString();
+            string name = _type.ToString();
             mapBulletPrefabPath.Add(_type, name);
         }
         return mapBulletPrefabPath[_type];

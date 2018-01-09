@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(BasePlane))]
-public class enemyConter : MonoBehaviour {
+public class AutoShoot : MonoBehaviour {
 
     // Use this for initialization
     BasePlane plane = null;

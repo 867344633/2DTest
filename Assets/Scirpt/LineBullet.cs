@@ -16,6 +16,10 @@ public class LineBullet : BaseBullent {
         {
             transform.eulerAngles = new Vector3(90, 0, 0);
         }
+        else if(direct == Direct.up)
+        {
+            transform.eulerAngles = new Vector3(-90, 0, 0);
+        }
     }
     void Update()
     {

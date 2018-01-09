@@ -9,9 +9,12 @@ public class BaseTrack : MonoBehaviour {
     [HideInInspector]
     public float rotation = 0;
     Vector2 vSpeed = new Vector2(0, 1);
+    [SerializeField]
+    Direct direct = Direct.none;
     // Use this for initialization
     // Use this for initialization
     void Start () {
+        if (direct == Direct.down) rotation = 180 + rotation;
         vSpeed = RotationMatrix(vSpeed * speed, rotation);
     }
 	
@@ -31,4 +34,5 @@ public class BaseTrack : MonoBehaviour {
         var newY = x * -sin + y * cos;
         return new Vector2((float)newX, (float)newY);
     }
+  
 }
